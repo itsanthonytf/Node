@@ -1,0 +1,4 @@
+npm init
+git init
+echo "node_modules" >> .gitignore
+
