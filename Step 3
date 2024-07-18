@@ -1,0 +1,24 @@
+const fs = require('fs');
+const axios = require('axios');
+const yargs = require('yargs');
+
+const argv = yargs(process.argv.slice(2)).argv;
+
+if (argv.out) {
+  const outputFilename = argv.out;
+  const source = argv._[0];
+
+  if (source.startsWith('http')) {
+    axios.get(source)
+      .then(response => {
+        fs.writeFileSync(outputFilename, response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching URL:', error);
+      });
+  } else {
+    fs.copyFileSync(source, outputFilename);
+  }
+} else {
+  // Your existing code from step2.js here
+}
